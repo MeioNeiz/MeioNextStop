@@ -1,6 +1,21 @@
 {
+  "title": "Meio LeaveButton",
   "summary": "A \"get off at next stop\" button on flight paths, where Blizzard's own doesn't appear.",
   "cfCategory": "Miscellaneous",
   "cfExtra": [],
-  "wagoCategories": ["Miscellaneous"]
+  "wagoCategories": [
+    "Miscellaneous"
+  ],
+  "gallery": [
+    {
+      "file": "before-after.png",
+      "title": "Before and after",
+      "description": "On a flight: no way off, then the Get off at next stop button beside FlareUI's Flight Timer"
+    },
+    {
+      "file": "taxi.png",
+      "title": "On a flight path",
+      "description": "The button and its tooltip above the action bars"
+    }
+  ]
 }
