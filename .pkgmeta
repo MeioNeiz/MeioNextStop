@@ -1,0 +1,8 @@
+package-as: LeaveButton
+
+move-folders:
+  LeaveButton/addons/LeaveButton: LeaveButton
+
+ignore:
+  - docs
+  - README.md

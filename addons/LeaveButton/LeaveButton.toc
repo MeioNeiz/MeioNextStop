@@ -1,0 +1,10 @@
+## Interface: 16001
+## Title: LeaveButton
+## Notes: A "get off at next stop" button on flight paths (and a leave button in vehicles) when Blizzard's doesn't appear. /leavebutton
+## Version: 1.0.0
+## Author: MeioNeiz
+## X-Website: https://github.com/MeioNeiz/LeaveButton
+## X-License: MIT
+## SavedVariables: LeaveButtonDB
+
+LeaveButton.lua
