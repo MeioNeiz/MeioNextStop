@@ -8,6 +8,8 @@
 ## Author: MeioNeiz
 ## X-Website: https://github.com/MeioNeiz/LeaveButton
 ## X-License: MIT
+## X-Curse-Project-ID: 1822435
+## X-Wago-ID: EGPaP4N1
 ## SavedVariables: LeaveButtonDB
 
 LeaveButton.lua
