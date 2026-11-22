@@ -4,7 +4,7 @@
 -- works in combat too.
 
 local ADDON, ns = ...
-local PREFIX = "|cffb090ffLeaveButton:|r "
+local PREFIX = "|cffb090ffNextStop:|r "
 
 local db
 function ns.Say(msg)
@@ -12,7 +12,7 @@ function ns.Say(msg)
 end
 local Say = ns.Say
 
-local btn = CreateFrame("Button", "LeaveButtonFrame", UIParent)
+local btn = CreateFrame("Button", "NextStopFrame", UIParent)
 btn:SetSize(40, 40)
 btn:SetFrameStrata("HIGH")
 btn:SetMotionScriptsWhileDisabled(true)
@@ -108,7 +108,7 @@ function ns.SetPlacing(on)
     placing = on
     Update()
     if on then
-        Say(MOVE_HINT .. ", then click it or type |cffffd100/leavebutton move|r again.")
+        Say(MOVE_HINT .. ", then click it or type |cffffd100/nextstop move|r again.")
     end
 end
 
@@ -179,8 +179,8 @@ end
 f:SetScript("OnEvent", function(self, event, arg1)
     if event == "ADDON_LOADED" then
         if arg1 ~= ADDON then return end
-        LeaveButtonDB = LeaveButtonDB or {}
-        db = LeaveButtonDB
+        NextStopDB = NextStopDB or {}
+        db = NextStopDB
         if db.besideBar == nil then db.besideBar = true end
         ns.db = db
         Place()
@@ -202,17 +202,17 @@ end
 function ns.Help()
     Say("a \"get off at next stop\" button on flight paths (and in vehicles when "
         .. "Blizzard's doesn't show)")
-    local beside = Cmd("/leavebutton beside on||off") .. " - while flying, sit left of"
+    local beside = Cmd("/nextstop beside on||off") .. " - while flying, sit left of"
         .. " FlareUI's Flight Timer bar (now " .. (db.besideBar and "on" or "off") .. ")"
     if ns.FlareBarOff() then
         beside = beside .. " |cff999999(that bar is off: FlareUI > Resource Bars)|r"
     end
     local lines = {
-        Cmd("/leavebutton move") .. " - show it now to place it (" .. MOVE_HINT:lower() .. ")",
-        Cmd("/leavebutton reset") .. " - back to the default position",
+        Cmd("/nextstop move") .. " - show it now to place it (" .. MOVE_HINT:lower() .. ")",
+        Cmd("/nextstop reset") .. " - back to the default position",
         beside,
-        Cmd("/leavebutton settings") .. " - open the Settings panel",
-        "Settings: Esc > Options > AddOns > LeaveButton",
+        Cmd("/nextstop settings") .. " - open the Settings panel",
+        "Settings: Esc > Options > AddOns > NextStop",
     }
     for _, l in ipairs(lines) do DEFAULT_CHAT_FRAME:AddMessage("  " .. l) end
 end
@@ -223,8 +223,9 @@ function ns.SetBeside(on)
     Say("beside FlareUI's Flight Timer " .. (on and "|cff80ff80on|r" or "|cffff8080off|r"))
 end
 
-SLASH_LEAVEBUTTON1 = "/leavebutton"
-SlashCmdList.LEAVEBUTTON = function(msg)
+SLASH_NEXTSTOP1 = "/nextstop"
+SLASH_NEXTSTOP2 = "/leavebutton"
+SlashCmdList.NEXTSTOP = function(msg)
     local cmd, arg = (msg or ""):lower():match("^%s*(%S*)%s*(%S*)")
     if cmd == "" or cmd == "help" or cmd == "?" then
         ns.Help()

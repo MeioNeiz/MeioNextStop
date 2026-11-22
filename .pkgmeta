@@ -1,7 +1,7 @@
-package-as: LeaveButton
+package-as: NextStop
 
 move-folders:
-  LeaveButton/addons/LeaveButton: LeaveButton
+  NextStop/addons/NextStop: NextStop
 
 ignore:
   - docs

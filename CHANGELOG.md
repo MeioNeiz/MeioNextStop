@@ -1,4 +1,11 @@
-# LeaveButton
+# Next Stop
+
+## 2.0.0
+
+- New name: LeaveButton is now Next Stop (folder `NextStop`, `/nextstop`; `/leavebutton`
+  still works). Updating through an addon manager replaces the old folder; if you installed by
+  hand, delete `LeaveButton` from your AddOns folder. A position you saved with Shift-drag
+  resets once
 
 ## 1.1.0
 

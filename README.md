@@ -1,8 +1,8 @@
-# Meio LeaveButton
+# Meio Next Stop
 
 A "get off at next stop" button on flight paths, where Blizzard's own doesn't appear.
 
-![On a flight path: before, only FlareUI's Flight Timer bar to Stormwind; with LeaveButton, a
+![On a flight path: before, only FlareUI's Flight Timer bar to Stormwind; with Next Stop, a
 "Get off at next stop" button beside it](docs/before-after.png)
 
 ## What it does
@@ -13,7 +13,7 @@ A "get off at next stop" button on flight paths, where Blizzard's own doesn't ap
 - Shift-drag to move it anywhere
 - Leaves vehicles too, when Blizzard's leave button is missing
 
-Settings: Esc > Options > AddOns > LeaveButton, or `/leavebutton`.
+Settings: Esc > Options > AddOns > NextStop, or `/nextstop`.
 
 ## Install
 
@@ -22,7 +22,7 @@ Use your addon manager (CurseForge, Wago), or unzip a GitHub release into
 
 ## Feedback
 
-Bugs and ideas: [GitHub issues](https://github.com/MeioNeiz/LeaveButton/issues)
+Bugs and ideas: [GitHub issues](https://github.com/MeioNeiz/NextStop/issues)
 
 ## More Meio addons
 
