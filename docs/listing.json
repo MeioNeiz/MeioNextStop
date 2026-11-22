@@ -1,6 +1,7 @@
 {
   "title": "Meio Next Stop",
   "summary": "A \"get off at next stop\" button on flight paths, where Blizzard's own doesn't appear.",
+  "wagoSlug": "leavebutton",
   "cfCategory": "Miscellaneous",
   "cfExtra": [],
   "wagoCategories": [
