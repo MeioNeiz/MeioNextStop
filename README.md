@@ -4,8 +4,8 @@ A "get off at next stop" button on flight paths, where Blizzard's own doesn't ap
 
 For WoW Forever.
 
-![On a flight path: before, only FlareUI's Flight Timer bar to Stormwind; with Meio Next Stop, a
-"Get off at next stop" button beside it](docs/before-after.png)
+![On a flight path above the action bar: before, only FlareUI's Flight Timer bar to
+Stormwind; with Meio Next Stop, a "Get off at next stop" button beside it](docs/before-after.png)
 
 Renamed from NextStop: [keep your settings](#renamed-from-nextstop)
 

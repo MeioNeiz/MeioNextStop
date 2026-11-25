@@ -11,12 +11,17 @@
     {
       "file": "before-after.png",
       "title": "Before and after",
-      "description": "On a flight: no way off, then the Get off at next stop button beside FlareUI's Flight Timer"
+      "description": "On a flight: no way off, then the Get off at next stop button beside FlareUI's Flight Timer, above your action bar"
     },
     {
       "file": "taxi.png",
       "title": "On a flight path",
       "description": "The button and its tooltip above the action bars"
+    },
+    {
+      "file": "requested.png",
+      "title": "Landing at next stop",
+      "description": "After a click the label reads Landing at next stop until you touch down"
     }
   ]
 }
