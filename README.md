@@ -12,6 +12,8 @@ Renamed from NextStop: [keep your settings](#renamed-from-nextstop)
 ## What it does
 
 - Click it during a flight to land at the next flight master
+- Says where that is: hover it for "Next stop: Sentinel Hill" (with the time to it when
+  [Meio Flight Times](https://addons.wago.io/addons/meioflighttimes) is on)
 - Works in combat
 - Sits beside FlareUI's Flight Timer bar when that bar is on
 - Shift-drag to move it anywhere

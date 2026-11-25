@@ -1,5 +1,11 @@
 # MeioNextStop
 
+## 2.1.0
+
+- Names the next stop: hover the button for "Next stop: Sentinel Hill", and after a click it
+  reads "Landing at Sentinel Hill". With Meio Flight Times on, the time to it too. Kept
+  through a /reload mid-flight
+
 ## 2.0.1
 
 - Renamed from NextStop. Your settings carry over while the old folder is still installed;

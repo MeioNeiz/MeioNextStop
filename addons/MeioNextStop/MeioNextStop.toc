@@ -4,7 +4,7 @@
 ## Category: Meio
 ## IconTexture: Interface\Icons\Ability_Mount_Gryphon_01
 ## AddonCompartmentFunc: MeioNextStop_OnAddonCompartmentClick
-## Version: 2.0.1
+## Version: 2.1.0
 ## Author: MeioNeiz
 ## X-Website: https://github.com/MeioNeiz/MeioNextStop
 ## X-License: MIT

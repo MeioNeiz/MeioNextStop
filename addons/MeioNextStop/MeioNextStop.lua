@@ -39,6 +39,97 @@ local MOVE_HINT = "Shift-drag to move"
 
 local requested, placing = false, false
 
+-- The flight under way, from TakeTaxiNode: the points on the route and where they sit on the
+-- taxi map. The game never says which point is next, so it is the first one not yet passed
+-- over (closest approach). Saved so a /reload mid-air keeps it.
+local PASS_YARDS, AWAY_YARDS, CATCH, RESUME = 200, 40, 15, 3600
+local flight, landingAt
+
+local function TaxiMapID()
+    local fm = _G.FlightMapFrame
+    if fm and fm:IsShown() and fm.GetMapID then return fm:GetMapID() end
+    local map = C_Map.GetBestMapForUnit("player")
+    for _ = 1, 10 do
+        local info = map and C_Map.GetMapInfo(map)
+        if not info or info.mapType <= Enum.UIMapType.Continent or not info.parentMapID
+            or info.parentMapID == 0 then
+            return map
+        end
+        map = info.parentMapID
+    end
+    return map
+end
+
+local function Yards(map, a, b)
+    local w, h
+    if C_Map.GetMapWorldSize then w, h = C_Map.GetMapWorldSize(map) end
+    if not (w and w > 0 and h and h > 0) then w, h = 40000, 40000 end
+    local dx, dy = (a.x - b.x) * w, (a.y - b.y) * h
+    return math.sqrt(dx * dx + dy * dy)
+end
+
+local function OnTake(slot)
+    if not (db and NumTaxiNodes and GetNumRoutes and TaxiGetNodeSlot) then return end
+    local here
+    for i = 1, NumTaxiNodes() do
+        if TaxiNodeGetType(i) == "CURRENT" then here = i break end
+    end
+    local hops = GetNumRoutes(slot) or 0
+    if not here or here == slot or hops < 1 then return end
+    local map = TaxiMapID()
+    local where = {}
+    local ok, list = pcall(C_TaxiMap.GetAllTaxiNodes, map)
+    for _, n in ipairs(ok and list or {}) do
+        local p = n.position
+        if n.slotIndex and p and p.x then where[n.slotIndex] = { x = p.x, y = p.y } end
+    end
+    local f = { names = { TaxiNodeName(here) }, pos = { where[here] }, map = map, next = 2,
+                at = GetTime(), stamp = time() }
+    for i = 1, hops do
+        local s = TaxiGetNodeSlot(slot, i, false)
+        f.names[i + 1], f.pos[i + 1] = s and TaxiNodeName(s), s and where[s]
+        if not f.names[i + 1] then return end
+    end
+    flight, landingAt = f, nil
+    db.flight = f
+end
+
+local function Track()
+    local f = flight
+    if not (f and f.map and f.next < #f.names and C_Map.GetPlayerMapPosition) then return end
+    local p = C_Map.GetPlayerMapPosition(f.map, "player")
+    local node = f.pos[f.next]
+    if not (p and p.x and node) then return end
+    local d = Yards(f.map, p, node)
+    if not f.best or d < f.best then f.best = d end
+    local after = f.pos[f.next + 1]
+    if f.best <= PASS_YARDS and d > f.best + AWAY_YARDS
+        or after and Yards(f.map, p, after) < PASS_YARDS then
+        f.next, f.best = f.next + 1, nil
+        f.stamp = time()
+    end
+end
+
+local function ShortName(name)
+    return name and name:match("^([^,]+)") or name
+end
+
+-- the point the flight reaches next, and seconds to landing there when MeioFlightTimes knows
+local function NextStop()
+    local api = _G.MeioFlightTimes_API
+    if api and api.NextStop then
+        local name, secs = api.NextStop()
+        if name then return name, secs end
+    end
+    return flight and flight.names[flight.next]
+end
+ns.NextStop = NextStop
+
+local function Clock(s)
+    s = math.floor(s + 0.5)
+    return ("%d:%02d"):format(math.floor(s / 60), s % 60)
+end
+
 -- FlareUI's Flight Timer bar (Modules/ResourceBars.lua, "FlareUI_Resource_flight"): it exists
 -- only when that bar is on, and shows only while flying (and in Edit Mode)
 function ns.FlareBar()
@@ -87,7 +178,12 @@ end
 local function Update()
     local taxi = UnitOnTaxi("player")
     local vehicle = not taxi and CanExitVehicle and CanExitVehicle() and not BlizzardShowing()
-    if not taxi then requested = false end
+    if not taxi then
+        requested, landingAt = false, nil
+        if flight and GetTime() - flight.at > CATCH then flight, db.flight = nil, nil end
+    elseif not flight and db and db.flight and time() - (db.flight.stamp or 0) < RESUME then
+        flight = db.flight
+    end
     -- not mid shift-drag: re-anchoring would drop the frame StartMoving holds
     if not btn.moving then Place() end
     if placing then
@@ -95,7 +191,9 @@ local function Update()
         btn:SetEnabled(true)
         btn:Show()
     elseif taxi or vehicle then
-        label:SetText(taxi and (requested and "Landing at next stop" or "Get off at next stop")
+        local landing = landingAt and "Landing at " .. ShortName(landingAt)
+            or "Landing at next stop"
+        label:SetText(taxi and (requested and landing or "Get off at next stop")
             or VEHICLE_TITLE)
         btn:SetEnabled(not requested)
         btn:Show()
@@ -125,7 +223,7 @@ btn:SetScript("OnClick", function(self)
         ns.SetPlacing(false)
     elseif UnitOnTaxi("player") then
         TaxiRequestEarlyLanding()
-        requested = true
+        requested, landingAt = true, NextStop()
     else
         VehicleExit()
     end
@@ -161,6 +259,14 @@ btn:SetScript("OnEnter", function(self)
         GameTooltip_SetTitle(GameTooltip, TAXI_TITLE)
         local c = NORMAL_FONT_COLOR
         GameTooltip:AddLine(TAXI_DESC, c.r, c.g, c.b, true)
+        local name, secs = NextStop()
+        if requested and landingAt then name, secs = landingAt, nil end
+        if name then
+            local last = flight and name == flight.names[#flight.names]
+            GameTooltip:AddLine(("Next stop: |cffffffff%s|r%s%s"):format(ShortName(name),
+                secs and (", ~%s"):format(Clock(secs)) or "",
+                last and " |cff999999(the end)|r" or ""), c.r, c.g, c.b, true)
+        end
     else
         GameTooltip_SetTitle(GameTooltip, VEHICLE_TITLE)
     end
@@ -209,6 +315,10 @@ f:SetScript("OnEvent", function(self, event, arg1)
 end)
 -- safety net for a taxi start or landing no event reported
 C_Timer.NewTicker(2, Update)
+C_Timer.NewTicker(0.25, function()
+    if flight and UnitOnTaxi("player") then Track() end
+end)
+if TakeTaxiNode then hooksecurefunc("TakeTaxiNode", OnTake) end
 
 local function Cmd(text)
     return "|cffffd100" .. text .. "|r"
