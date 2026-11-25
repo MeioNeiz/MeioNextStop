@@ -1,4 +1,11 @@
-# Next Stop
+# MeioNextStop
+
+## 2.0.1
+
+- Renamed from NextStop. Your settings carry over while the old folder is still installed;
+  if your addon manager removed it, copy `WTF\Account\<account>\SavedVariables\NextStop.lua`
+  to `MeioNextStop.lua` before logging in. `/nextstop` still works; then remove or disable the
+  old NextStop addon (it says so in chat if it is still on)
 
 ## 2.0.0
 

@@ -1,5 +1,5 @@
--- Options panel (Esc > Options > AddOns > NextStop, or /nextstop). Settings write
--- straight into NextStopDB.
+-- Options panel (Esc > Options > AddOns > MeioNextStop, or /nextstop). Settings write
+-- straight into MeioNextStopDB.
 local _, ns = ...
 
 local category
@@ -9,9 +9,9 @@ local function Register()
         return
     end
     local layout
-    category, layout = Settings.RegisterVerticalLayoutCategory("NextStop")
+    category, layout = Settings.RegisterVerticalLayoutCategory("MeioNextStop")
 
-    local beside = Settings.RegisterAddOnSetting(category, "NEXTSTOP_BESIDE", "besideBar",
+    local beside = Settings.RegisterAddOnSetting(category, "MEIONEXTSTOP_BESIDE", "besideBar",
         ns.db, Settings.VarType.Boolean, "Beside flight bar", true)
     local tip = "While flying, the button sits left of FlareUI's Flight Timer bar "
         .. "(destination and time left) and follows it when you move the bar in Edit Mode. "
@@ -22,7 +22,7 @@ local function Register()
     end
     Settings.CreateCheckbox(category, beside, tip)
     if Settings.SetOnValueChangedCallback then
-        Settings.SetOnValueChangedCallback("NEXTSTOP_BESIDE", function() ns.Place() end)
+        Settings.SetOnValueChangedCallback("MEIONEXTSTOP_BESIDE", function() ns.Place() end)
     end
 
     if layout and CreateSettingsButtonInitializer then
@@ -50,6 +50,6 @@ function ns.OpenSettings()
     return true
 end
 
-function NextStop_OnAddonCompartmentClick()
+function MeioNextStop_OnAddonCompartmentClick()
     if not ns.OpenSettings() then ns.Help() end
 end

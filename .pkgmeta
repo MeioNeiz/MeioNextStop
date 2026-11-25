@@ -1,7 +1,7 @@
-package-as: NextStop
+package-as: MeioNextStop
 
 move-folders:
-  NextStop/addons/NextStop: NextStop
+  MeioNextStop/addons/MeioNextStop: MeioNextStop
 
 ignore:
   - docs

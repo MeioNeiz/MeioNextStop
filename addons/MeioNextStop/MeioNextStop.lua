@@ -4,7 +4,7 @@
 -- works in combat too.
 
 local ADDON, ns = ...
-local PREFIX = "|cffb090ffNextStop:|r "
+local PREFIX = "|cffb090ffMeioNextStop:|r "
 
 local db
 function ns.Say(msg)
@@ -12,7 +12,7 @@ function ns.Say(msg)
 end
 local Say = ns.Say
 
-local btn = CreateFrame("Button", "NextStopFrame", UIParent)
+local btn = CreateFrame("Button", "MeioNextStopFrame", UIParent)
 btn:SetSize(40, 40)
 btn:SetFrameStrata("HIGH")
 btn:SetMotionScriptsWhileDisabled(true)
@@ -169,6 +169,22 @@ btn:SetScript("OnEnter", function(self)
 end)
 btn:SetScript("OnLeave", GameTooltip_Hide)
 
+-- fresh: nothing saved under our name; the old folder (NextStop) loads after us
+-- and may have it
+local fresh
+local function LoadDB()
+    if not MeioNextStopDB and type(NextStopDB) == "table" then
+        MeioNextStopDB = NextStopDB
+    end
+    NextStopDB = nil
+    fresh = not MeioNextStopDB
+    MeioNextStopDB = MeioNextStopDB or {}
+    db = MeioNextStopDB
+    if db.besideBar == nil then db.besideBar = true end
+    ns.db = db
+    Place()
+end
+
 local f = CreateFrame("Frame")
 f:RegisterEvent("ADDON_LOADED")
 for _, ev in ipairs({ "PLAYER_ENTERING_WORLD", "PLAYER_CONTROL_LOST",
@@ -178,13 +194,12 @@ for _, ev in ipairs({ "PLAYER_ENTERING_WORLD", "PLAYER_CONTROL_LOST",
 end
 f:SetScript("OnEvent", function(self, event, arg1)
     if event == "ADDON_LOADED" then
-        if arg1 ~= ADDON then return end
-        NextStopDB = NextStopDB or {}
-        db = NextStopDB
-        if db.besideBar == nil then db.besideBar = true end
-        ns.db = db
-        Place()
-        self:UnregisterEvent("ADDON_LOADED")
+        if arg1 == ADDON then
+            LoadDB()
+        elseif arg1 == "NextStop" and fresh then
+            MeioNextStopDB = nil
+            LoadDB()
+        end
         return
     end
     -- UnitOnTaxi can turn true a moment after PLAYER_CONTROL_LOST, hence the rechecks
@@ -212,7 +227,7 @@ function ns.Help()
         Cmd("/nextstop reset") .. " - back to the default position",
         beside,
         Cmd("/nextstop settings") .. " - open the Settings panel",
-        "Settings: Esc > Options > AddOns > NextStop",
+        "Settings: Esc > Options > AddOns > MeioNextStop",
     }
     for _, l in ipairs(lines) do DEFAULT_CHAT_FRAME:AddMessage("  " .. l) end
 end
@@ -223,9 +238,9 @@ function ns.SetBeside(on)
     Say("beside FlareUI's Flight Timer " .. (on and "|cff80ff80on|r" or "|cffff8080off|r"))
 end
 
-SLASH_NEXTSTOP1 = "/nextstop"
-SLASH_NEXTSTOP2 = "/leavebutton"
-SlashCmdList.NEXTSTOP = function(msg)
+SLASH_MEIONEXTSTOP1 = "/nextstop"
+SLASH_MEIONEXTSTOP2 = "/leavebutton"
+SlashCmdList.MEIONEXTSTOP = function(msg)
     local cmd, arg = (msg or ""):lower():match("^%s*(%S*)%s*(%S*)")
     if cmd == "" or cmd == "help" or cmd == "?" then
         ns.Help()
@@ -246,3 +261,18 @@ end
 function ns.IsPlacing()
     return placing
 end
+
+-- The old folder (NextStop, before the Meio rename) may still be installed: both would run.
+-- Its slash command is pointed here and the player told to disable it.
+local oldFolder = CreateFrame("Frame")
+oldFolder:RegisterEvent("PLAYER_LOGIN")
+oldFolder:SetScript("OnEvent", function()
+    if not C_AddOns.IsAddOnLoaded("NextStop") then return end
+    SlashCmdList.NEXTSTOP = SlashCmdList.MEIONEXTSTOP
+    if hash_SlashCmdList then
+        hash_SlashCmdList["/NEXTSTOP"] = nil
+        hash_SlashCmdList["/LEAVEBUTTON"] = nil
+    end
+    Say("the old NextStop addon is still enabled: disable it in the AddOns list"
+        .. " (MeioNextStop replaces it)")
+end)

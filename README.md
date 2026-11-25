@@ -2,8 +2,12 @@
 
 A "get off at next stop" button on flight paths, where Blizzard's own doesn't appear.
 
-![On a flight path: before, only FlareUI's Flight Timer bar to Stormwind; with Next Stop, a
+For WoW Forever.
+
+![On a flight path: before, only FlareUI's Flight Timer bar to Stormwind; with Meio Next Stop, a
 "Get off at next stop" button beside it](docs/before-after.png)
+
+Renamed from NextStop: [keep your settings](#renamed-from-nextstop)
 
 ## What it does
 
@@ -13,7 +17,13 @@ A "get off at next stop" button on flight paths, where Blizzard's own doesn't ap
 - Shift-drag to move it anywhere
 - Leaves vehicles too, when Blizzard's leave button is missing
 
-Settings: Esc > Options > AddOns > NextStop, or `/nextstop`.
+Settings: Esc > Options > AddOns > MeioNextStop, or `/nextstop`.
+
+## Renamed from NextStop
+
+Your settings carry over while the old NextStop folder is still installed. If your addon
+manager removed it, copy `WTF\Account\<account>\SavedVariables\NextStop.lua` to
+`MeioNextStop.lua` before logging in.
 
 ## Install
 
@@ -22,11 +32,11 @@ Use your addon manager (CurseForge, Wago), or unzip a GitHub release into
 
 ## Feedback
 
-Bugs and ideas: [GitHub issues](https://github.com/MeioNeiz/NextStop/issues)
+Bugs and ideas: [GitHub issues](https://github.com/MeioNeiz/MeioNextStop/issues)
 
 ## More Meio addons
 
-[Meio TrainerCompare](https://www.curseforge.com/wow/addons/trainercompare) | [Meio AutoRank](https://www.curseforge.com/wow/addons/meio-autorank) | [Meio MeterHover](https://www.curseforge.com/wow/addons/meterhover) | [Meio Map](https://addons.wago.io/addons/meiomap) | [Meio Alts](https://addons.wago.io/addons/meioalts) | [Meio DPS](https://addons.wago.io/addons/meiodps) | [Meio Plates](https://addons.wago.io/addons/meioplates) | [Meio Hub](https://addons.wago.io/addons/meiohub) | [Meio Pets](https://addons.wago.io/addons/meiopets) | [Meio Stats](https://addons.wago.io/addons/meiostats) | [Meio Bags](https://addons.wago.io/addons/meiobags) | [Meio Fixes](https://addons.wago.io/addons/meiofixes) | [Meio Flight Times](https://addons.wago.io/addons/meioflighttimes)
+[Meio Trainer Compare](https://www.curseforge.com/wow/addons/trainercompare) | [Meio Auto Rank](https://www.curseforge.com/wow/addons/meio-autorank) | [Meio Meter Hover](https://www.curseforge.com/wow/addons/meterhover) | [Meio Map](https://addons.wago.io/addons/meiomap) | [Meio Alts](https://addons.wago.io/addons/meioalts) | [Meio DPS](https://addons.wago.io/addons/meiodps) | [Meio Plates](https://addons.wago.io/addons/meioplates) | [Meio Hub](https://addons.wago.io/addons/meiohub) | [Meio Pets](https://addons.wago.io/addons/meiopets) | [Meio Stats](https://addons.wago.io/addons/meiostats) | [Meio Bags](https://addons.wago.io/addons/meiobags) | [Meio Fixes](https://addons.wago.io/addons/meiofixes) | [Meio Flight Times](https://addons.wago.io/addons/meioflighttimes) | [Meio Tooltip Fold](https://addons.wago.io/addons/meiotooltipfold) | [Meio Auto Run Turn](https://addons.wago.io/addons/meioautorunturn) | [Meio Mail](https://addons.wago.io/addons/meiomail) | [Meio QoL](https://addons.wago.io/addons/meioqol) | [Meio TSM Browse](https://addons.wago.io/addons/tsmbrowse)
 
 ## Licence
 
