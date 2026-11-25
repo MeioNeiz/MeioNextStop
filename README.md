@@ -12,6 +12,8 @@ Stormwind; with Meio Next Stop, a "Get off at next stop" button beside it](docs/
 - Click it during a flight to land at the next flight master
 - Says where that is: hover it for "Next stop: Sentinel Hill" (with the time to it when
   [Meio Flight Times](https://addons.wago.io/addons/meioflighttimes) is on)
+
+![Hovering the button: "Next stop: Sentinel Hill, ~0:58" with Meio Flight Times on](docs/taxi.png)
 - Works in combat
 - Sits beside FlareUI's Flight Timer bar when that bar is on
 - Shift-drag to move it anywhere
