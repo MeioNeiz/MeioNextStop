@@ -7,8 +7,6 @@ For WoW Forever.
 ![On a flight path above the action bar: before, only FlareUI's Flight Timer bar to
 Stormwind; with Meio Next Stop, a "Get off at next stop" button beside it](docs/before-after.png)
 
-Renamed from NextStop: [keep your settings](#renamed-from-nextstop)
-
 ## What it does
 
 - Click it during a flight to land at the next flight master
@@ -21,12 +19,6 @@ Renamed from NextStop: [keep your settings](#renamed-from-nextstop)
 - Flight paths only: boats and zeppelins can't be stopped, the game has no way to ask
 
 Settings: Esc > Options > AddOns > MeioNextStop, or `/nextstop`.
-
-## Renamed from NextStop
-
-Your settings carry over while the old NextStop folder is still installed. If your addon
-manager removed it, copy `WTF\Account\<account>\SavedVariables\NextStop.lua` to
-`MeioNextStop.lua` before logging in.
 
 ## Install
 
