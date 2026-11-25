@@ -15,13 +15,13 @@
     },
     {
       "file": "taxi.png",
-      "title": "On a flight path",
-      "description": "The button and its tooltip on a flight path"
+      "title": "Next stop named",
+      "description": "Hover the button: the next stop, Sentinel Hill, and with Meio Flight Times the time to it"
     },
     {
       "file": "requested.png",
-      "title": "Landing at next stop",
-      "description": "After a click the label reads Landing at next stop until you touch down"
+      "title": "Landing at Sentinel Hill",
+      "description": "After a click the label names the stop you land at, until you touch down"
     }
   ]
 }
