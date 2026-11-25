@@ -18,6 +18,7 @@ Renamed from NextStop: [keep your settings](#renamed-from-nextstop)
 - Sits beside FlareUI's Flight Timer bar when that bar is on
 - Shift-drag to move it anywhere
 - Leaves vehicles too, when Blizzard's leave button is missing
+- Flight paths only: boats and zeppelins can't be stopped, the game has no way to ask
 
 Settings: Esc > Options > AddOns > MeioNextStop, or `/nextstop`.
 
