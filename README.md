@@ -1,6 +1,7 @@
 # Meio Next Stop
 
-A "get off at next stop" button on flight paths, where Blizzard's own doesn't appear.
+Flight going the long way round? One button lands you at the next flight master, where
+Blizzard's own doesn't appear.
 
 For WoW Forever.
 

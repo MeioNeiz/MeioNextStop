@@ -1,11 +1,11 @@
 {
   "title": "Meio Next Stop",
-  "summary": "Get off a flight early: a button that lands you at the next flight master.",
+  "summary": "Lands you at the next flight master: one button to get off a flight early.",
   "wagoSlug": "leavebutton",
-  "cfCategory": "Miscellaneous",
+  "cfCategory": "Map & Minimap",
   "cfExtra": [],
   "wagoCategories": [
-    "Miscellaneous"
+    "Map & Minimap"
   ],
   "gallery": [
     {
